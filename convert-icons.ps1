@@ -9,8 +9,8 @@ param(
 
 # Check if ImageMagick is available
 try {
-    $magickVersion = & magick -version 2>$null
-    if (-not $magickVersion) {
+    $null = & magick -version 2>&1
+    if ($LASTEXITCODE -ne 0) {
         throw "ImageMagick not found"
     }
     Write-Host "ImageMagick found" -ForegroundColor Green
@@ -38,6 +38,12 @@ try {
     <p>Use online converters like <a href="https://convertio.co/psd-png/" target="_blank">Convertio</a> or <a href="https://www.zamzar.com/convert/psd-to-png/" target="_blank">Zamzar</a> to convert these PSD files:</p>
     <div class="icon-list">
 "@
+    
+    # Check if source directory exists
+    if (-not (Test-Path $SourceDir)) {
+        Write-Host "Source directory not found: $SourceDir" -ForegroundColor Red
+        exit 1
+    }
     
     # Get all PSD files
     $psdFiles = Get-ChildItem -Path $SourceDir -Filter "*.psd" -Recurse
@@ -68,7 +74,13 @@ try {
     
     $htmlContent | Out-File -FilePath "icon-conversion-helper.html" -Encoding UTF8
     Write-Host "Created icon-conversion-helper.html to help with manual conversion" -ForegroundColor Green
-    return
+    exit 0
+}
+
+# Check if source directory exists
+if (-not (Test-Path $SourceDir)) {
+    Write-Host "Source directory not found: $SourceDir" -ForegroundColor Red
+    exit 1
 }
 
 # Create output directory if it doesn't exist
@@ -82,6 +94,11 @@ $psdFiles = Get-ChildItem -Path $SourceDir -Filter "*.psd" -Recurse
 $totalFiles = $psdFiles.Count
 $converted = 0
 $failed = 0
+
+if ($totalFiles -eq 0) {
+    Write-Host "No PSD files found in $SourceDir" -ForegroundColor Yellow
+    exit 0
+}
 
 Write-Host "Found $totalFiles PSD files to convert" -ForegroundColor Cyan
 
@@ -99,26 +116,37 @@ foreach ($file in $psdFiles) {
         Write-Host "Converting $($file.Name)..." -ForegroundColor White
         
         # Convert PSD to PNG using ImageMagick
-        # Extract the first layer/flatten the image and resize to specified size
-        & magick "$($file.FullName)[0]" -flatten -resize "${Size}x${Size}" -background transparent "$outputPath" 2>$null
+        $magickArgs = @(
+            "$($file.FullName)[0]"
+            "-flatten"
+            "-resize"
+            "${Size}x${Size}"
+            "-background"
+            "transparent"
+            "$outputPath"
+        )
         
-        if (Test-Path $outputPath) {
+        & magick $magickArgs 2>&1 | Out-Null
+        
+        if ($LASTEXITCODE -eq 0 -and (Test-Path $outputPath)) {
             $converted++
-            Write-Host "✓ Converted: $outputFileName" -ForegroundColor Green
+            Write-Host "Converted: $outputFileName" -ForegroundColor Green
         } else {
-            throw "Output file not created"
+            throw "ImageMagick conversion failed (exit code: $LASTEXITCODE)"
         }
     } catch {
         $failed++
-        Write-Host "✗ Failed to convert $($file.Name): $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host "Failed to convert $($file.Name): $($_.Exception.Message)" -ForegroundColor Red
     }
 }
 
-Write-Host "`nConversion Summary:" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "Conversion Summary:" -ForegroundColor Cyan
 Write-Host "Total files: $totalFiles" -ForegroundColor White
 Write-Host "Converted: $converted" -ForegroundColor Green
 Write-Host "Failed: $failed" -ForegroundColor Red
 
 if ($converted -gt 0) {
-    Write-Host "`nPNG icons saved to: $OutputDir" -ForegroundColor Green
+    Write-Host ""
+    Write-Host "PNG icons saved to: $OutputDir" -ForegroundColor Green
 }
