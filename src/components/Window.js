@@ -143,7 +143,7 @@ const Window = ({
   return (
     <div
       ref={windowRef}
-      className={`xp-window ${isActive ? 'active' : ''} ${isDragging ? 'dragging' : ''}`}
+      className={`xp-window ${isActive ? 'active' : 'inactive'} ${isDragging ? 'dragging' : ''}`}
       style={windowStyle}
       data-window-id={id}
       onClick={() => onFocus && onFocus(id)}

@@ -1,0 +1,8 @@
+- Always write code to mimic the functionality like it did in windows XP
+- Always remember the design should match 1:1 with Windows XP original
+- Always think step by step for errors and warnings
+- Always consider existing code over writing new code
+- Always consider design to be top priority and matching the Windows XP theme
+- Always refactor UI components if they are over 400 lines of code or more so they are easier to maintain and keep the existing functionality.
+- Always write code with best practices for Node JS 20.x+ and React 18.3.x
+- Always run syntax checks on the code you write.
