@@ -77,7 +77,7 @@ const Taskbar = ({ onStartClick, openWindows = [], onWindowClick, startMenuOpen 
           {/* Volume Icon */}
           <div className="system-tray-icon" title="Volume">
             <img
-              src="/assets/icons/Volume.png"
+              src="/assets/icons/png/Whistler - Volume.png"
               alt="Volume"
               style={{ width: '16px', height: '16px' }}
               onError={(e) => {
@@ -89,7 +89,7 @@ const Taskbar = ({ onStartClick, openWindows = [], onWindowClick, startMenuOpen 
           {/* Network Icon */}
           <div className="system-tray-icon" title="Network Connection">
             <img
-              src="/assets/icons/Network Connection.png"
+              src="/assets/icons/png/Network Connection.png"
               alt="Network"
               style={{ width: '16px', height: '16px' }}
               onError={(e) => {
@@ -101,11 +101,35 @@ const Taskbar = ({ onStartClick, openWindows = [], onWindowClick, startMenuOpen 
           {/* Antivirus/Security Icon */}
           <div className="system-tray-icon" title="Security Center">
             <img
-              src="/assets/icons/Security Center.png"
+              src="/assets/icons/png/Security Center.png"
               alt="Security"
               style={{ width: '16px', height: '16px' }}
               onError={(e) => {
                 e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTggMUwzIDN2NmMwIDMuMDkgMi4xNCA1Ljk5IDUgNi43MiAyLjg2LS43MyA1LTMuNjMgNS02LjcyVjNMOCAxem0wIDEwLjVjLTEuMzggMC0yLjUtMS4xMi0yLjUtMi41UzYuNjIgNi41IDggNi41czIuNSAxLjEyIDIuNSAyLjVTOS4zOCAxMS41IDggMTEuNXoiIGZpbGw9IiNmZmZmZmYiLz4KPC9zdmc+Cg==';
+              }}
+            />
+          </div>
+
+          {/* Windows Update Icon */}
+          <div className="system-tray-icon" title="Automatic Updates">
+            <img
+              src="/assets/icons/png/Whistler - Update.png"
+              alt="Updates"
+              style={{ width: '16px', height: '16px' }}
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
+            />
+          </div>
+
+          {/* Safely Remove Hardware Icon */}
+          <div className="system-tray-icon" title="Safely Remove Hardware">
+            <img
+              src="/assets/icons/png/Memory Stick.png"
+              alt="USB"
+              style={{ width: '16px', height: '16px' }}
+              onError={(e) => {
+                e.target.style.display = 'none';
               }}
             />
           </div>

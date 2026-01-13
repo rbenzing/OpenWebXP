@@ -11,14 +11,14 @@ const StartMenu = ({ isOpen, onClose, onProgramClick }) => {
   };
 
   const programs = [
-    { name: 'Internet Explorer', icon: '/assets/icons/Internet Explorer 6.png', fallback: fallbackIcons.ie, id: 'ie' },
-    { name: 'Outlook Express', icon: '/assets/icons/Outlook Express.png', id: 'outlook' },
-    { name: 'Windows Media Player', icon: '/assets/icons/Windows Media Player 9.png', id: 'mediaplayer' },
-    { name: 'Windows Messenger', icon: '/assets/icons/Windows Messenger.png', id: 'messenger' },
-    { name: 'Notepad', icon: '/assets/icons/Notepad.png', fallback: fallbackIcons.notepad, id: 'notepad' },
-    { name: 'Calculator', icon: '/assets/icons/Calculator.png', fallback: fallbackIcons.calculator, id: 'calculator' },
-    { name: 'Paint', icon: '/assets/icons/Paint.png', id: 'paint' },
-    { name: 'Command Prompt', icon: '/assets/icons/Command Prompt.png', id: 'cmd' }
+    { name: 'Internet Explorer', icon: '/assets/icons/png/Internet Explorer 6.png', fallback: fallbackIcons.ie, id: 'ie' },
+    { name: 'Outlook Express', icon: '/assets/icons/png/Outlook Express.png', id: 'outlook' },
+    { name: 'Windows Media Player', icon: '/assets/icons/png/Windows Media Player 9.png', id: 'mediaplayer' },
+    { name: 'Windows Messenger', icon: '/assets/icons/png/Windows Messenger.png', id: 'messenger' },
+    { name: 'Notepad', icon: '/assets/icons/png/Notepad.png', fallback: fallbackIcons.notepad, id: 'notepad' },
+    { name: 'Calculator', icon: '/assets/icons/png/Calculator.png', fallback: fallbackIcons.calculator, id: 'calculator' },
+    { name: 'Paint', icon: '/assets/icons/png/Paint.png', id: 'paint' },
+    { name: 'Command Prompt', icon: '/assets/icons/png/Command Prompt.png', id: 'cmd' }
   ];
 
   const recentDocuments = [
@@ -50,9 +50,9 @@ const StartMenu = ({ isOpen, onClose, onProgramClick }) => {
       <div className="xp-start-menu">
         <div className="start-menu-header">
           <div className="start-menu-user">
-            <img 
-              src="/assets/icons/user.png" 
-              alt="User" 
+            <img
+              src="/assets/icons/png/User Accounts.png"
+              alt="User"
               style={{ width: '48px', height: '48px' }}
               onError={(e) => {
                 e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjQiIGZpbGw9IiMwMDU0ZTMiLz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIxMiIgeT0iMTIiPgo8cGF0aCBkPSJNMTIgMTJjMi4yMSAwIDQtMS43OSA0LTRzLTEuNzktNC00LTQtNCAxLjc5LTQgNCAxLjc5IDQgNCA0em0wIDJjLTIuNjcgMC04IDEuMzQtOCA0djJoMTZ2LTJjMC0yLjY2LTUuMzMtNC04LTR6IiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPC9zdmc+';
@@ -100,7 +100,7 @@ const StartMenu = ({ isOpen, onClose, onProgramClick }) => {
           <div className="start-menu-right">
             <div className="start-menu-item" onClick={() => handleProgramClick({ name: 'My Documents', id: 'my-documents' })}>
               <img
-                src="/assets/icons/My Documents.png"
+                src="/assets/icons/png/My Documents.png"
                 alt="My Documents"
                 style={{ width: '20px', height: '20px' }}
                 onError={(e) => {
@@ -111,7 +111,7 @@ const StartMenu = ({ isOpen, onClose, onProgramClick }) => {
             </div>
             <div className="start-menu-item" onClick={() => handleProgramClick({ name: 'My Recent Documents', id: 'recent-documents' })}>
               <img
-                src="/assets/icons/Recent Documents.png"
+                src="/assets/icons/png/Recent Documents.png"
                 alt="Recent Documents"
                 style={{ width: '20px', height: '20px' }}
                 onError={(e) => {
@@ -123,7 +123,7 @@ const StartMenu = ({ isOpen, onClose, onProgramClick }) => {
             </div>
             <div className="start-menu-item" onClick={() => handleProgramClick({ name: 'My Pictures', id: 'my-pictures' })}>
               <img
-                src="/assets/icons/My Pictures.png"
+                src="/assets/icons/png/My Pictures.png"
                 alt="My Pictures"
                 style={{ width: '20px', height: '20px' }}
                 onError={(e) => {
@@ -134,7 +134,7 @@ const StartMenu = ({ isOpen, onClose, onProgramClick }) => {
             </div>
             <div className="start-menu-item" onClick={() => handleProgramClick({ name: 'My Music', id: 'my-music' })}>
               <img
-                src="/assets/icons/My Music.png"
+                src="/assets/icons/png/My Music.png"
                 alt="My Music"
                 style={{ width: '20px', height: '20px' }}
                 onError={(e) => {
@@ -145,7 +145,7 @@ const StartMenu = ({ isOpen, onClose, onProgramClick }) => {
             </div>
             <div className="start-menu-item" onClick={() => handleProgramClick({ name: 'My Computer', id: 'my-computer' })}>
               <img
-                src="/assets/icons/My Computer.png"
+                src="/assets/icons/png/My Computer.png"
                 alt="My Computer"
                 style={{ width: '20px', height: '20px' }}
                 onError={(e) => {
@@ -159,7 +159,7 @@ const StartMenu = ({ isOpen, onClose, onProgramClick }) => {
             
             <div className="start-menu-item" onClick={() => handleProgramClick({ name: 'Control Panel', id: 'control-panel' })}>
               <img
-                src="/assets/icons/Control Panel.png"
+                src="/assets/icons/png/Control Panel.png"
                 alt="Control Panel"
                 style={{ width: '20px', height: '20px' }}
                 onError={(e) => {
@@ -170,7 +170,7 @@ const StartMenu = ({ isOpen, onClose, onProgramClick }) => {
             </div>
             <div className="start-menu-item" onClick={() => handleProgramClick({ name: 'Help and Support', id: 'help' })}>
               <img
-                src="/assets/icons/Help and Support.png"
+                src="/assets/icons/png/Whistler - Help and Support.png"
                 alt="Help"
                 style={{ width: '20px', height: '20px' }}
                 onError={(e) => {
@@ -181,7 +181,7 @@ const StartMenu = ({ isOpen, onClose, onProgramClick }) => {
             </div>
             <div className="start-menu-item" onClick={() => handleProgramClick({ name: 'Search', id: 'search' })}>
               <img
-                src="/assets/icons/Search.png"
+                src="/assets/icons/png/Search.png"
                 alt="Search"
                 style={{ width: '20px', height: '20px' }}
                 onError={(e) => {
@@ -192,7 +192,7 @@ const StartMenu = ({ isOpen, onClose, onProgramClick }) => {
             </div>
             <div className="start-menu-item" onClick={() => handleProgramClick({ name: 'Run...', id: 'run' })}>
               <img
-                src="/assets/icons/Run.png"
+                src="/assets/icons/png/Whistler - Run.png"
                 alt="Run"
                 style={{ width: '20px', height: '20px' }}
                 onError={(e) => {
@@ -207,7 +207,7 @@ const StartMenu = ({ isOpen, onClose, onProgramClick }) => {
             <div className="start-menu-bottom">
               <div className="start-menu-item" onClick={() => handleProgramClick({ name: 'Log Off', id: 'logoff' })}>
                 <img
-                  src="/assets/icons/Logout.png"
+                  src="/assets/icons/png/Logout.png"
                   alt="Log Off"
                   style={{ width: '20px', height: '20px' }}
                   onError={(e) => {
@@ -218,7 +218,7 @@ const StartMenu = ({ isOpen, onClose, onProgramClick }) => {
               </div>
               <div className="start-menu-item" onClick={() => handleProgramClick({ name: 'Turn Off Computer', id: 'shutdown' })}>
                 <img
-                  src="/assets/icons/Power.png"
+                  src="/assets/icons/png/Power.png"
                   alt="Shutdown"
                   style={{ width: '20px', height: '20px' }}
                   onError={(e) => {

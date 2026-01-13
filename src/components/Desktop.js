@@ -6,6 +6,13 @@ import StartMenu from './StartMenu';
 import FileExplorer from './FileExplorer';
 import MobileBSOD from './MobileBSOD';
 import ContextMenu from './ContextMenu';
+import RunDialog from './dialogs/RunDialog';
+import ShutdownDialog from './dialogs/ShutdownDialog';
+import LogOffDialog from './dialogs/LogOffDialog';
+import Notepad from './applications/Notepad';
+import Calculator from './applications/Calculator';
+import Paint from './applications/Paint';
+import CommandPrompt from './applications/CommandPrompt';
 import useIsMobile from '../hooks/useIsMobile';
 
 const Desktop = () => {
@@ -14,11 +21,20 @@ const Desktop = () => {
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [activeWindow, setActiveWindow] = useState(null);
   const [contextMenu, setContextMenu] = useState(null);
+  const [showRunDialog, setShowRunDialog] = useState(false);
+  const [showShutdownDialog, setShowShutdownDialog] = useState(false);
+  const [showLogOffDialog, setShowLogOffDialog] = useState(false);
   const isMobile = useIsMobile();
 
   // Keyboard shortcuts
   React.useEffect(() => {
     const handleKeyDown = (e) => {
+      // Windows+R for Run dialog
+      if (e.metaKey && e.key === 'r') {
+        e.preventDefault();
+        setShowRunDialog(true);
+      }
+
       // Alt + Tab for window switching (simplified)
       if (e.altKey && e.key === 'Tab') {
         e.preventDefault();
@@ -51,17 +67,27 @@ const Desktop = () => {
     {
       id: 'my-computer',
       name: 'My Computer',
-      icon: '/assets/icons/my-computer.png'
-    },
-    {
-      id: 'recycle-bin',
-      name: 'Recycle Bin',
-      icon: '/assets/icons/recycle-bin-empty.png'
+      icon: '/assets/icons/png/My Computer.png'
     },
     {
       id: 'my-documents',
       name: 'My Documents',
-      icon: '/assets/icons/my-documents.png'
+      icon: '/assets/icons/png/My Documents.png'
+    },
+    {
+      id: 'my-network-places',
+      name: 'My Network Places',
+      icon: '/assets/icons/png/My Network Places.png'
+    },
+    {
+      id: 'internet-explorer',
+      name: 'Internet Explorer',
+      icon: '/assets/icons/png/Internet Explorer 6.png'
+    },
+    {
+      id: 'recycle-bin',
+      name: 'Recycle Bin',
+      icon: '/assets/icons/png/Whistler - Recycle Bin (empty).png'
     }
   ];
 
@@ -83,14 +109,14 @@ const Desktop = () => {
       x: e.clientX,
       y: e.clientY,
       items: [
-        { label: 'Arrange Icons by', icon: null },
-        { label: 'Refresh', icon: null },
+        { label: 'Arrange Icons by', icon: '/assets/icons/png/Sort Alphabetically.png' },
+        { label: 'Refresh', icon: '/assets/icons/png/Whistler - IE Refresh.png' },
         { separator: true },
-        { label: 'Paste', icon: null, disabled: true },
+        { label: 'Paste', icon: '/assets/icons/png/Cut.png', disabled: true },
         { separator: true },
-        { label: 'New', icon: null },
+        { label: 'New', icon: '/assets/icons/png/New Folder.png' },
         { separator: true },
-        { label: 'Properties', icon: null }
+        { label: 'Properties', icon: '/assets/icons/png/Display Properties.png' }
       ]
     });
   };
@@ -144,6 +170,24 @@ const Desktop = () => {
 
   // Handle program launch from Start Menu
   const handleProgramClick = (program) => {
+    // Handle special system dialogs
+    if (program.id === 'run') {
+      setShowRunDialog(true);
+      setShowStartMenu(false);
+      return;
+    }
+    if (program.id === 'shutdown') {
+      setShowShutdownDialog(true);
+      setShowStartMenu(false);
+      return;
+    }
+    if (program.id === 'logoff') {
+      setShowLogOffDialog(true);
+      setShowStartMenu(false);
+      return;
+    }
+
+    // Open normal application window
     const newWindow = {
       id: `${program.id}-${Date.now()}`,
       title: program.name,
@@ -200,41 +244,13 @@ const Desktop = () => {
       case 'my-documents':
         return <FileExplorer initialPath={window.title} />;
       case 'notepad':
-        return (
-          <div style={{ padding: '8px', height: '100%' }}>
-            <textarea
-              style={{
-                width: '100%',
-                height: '100%',
-                border: '1px inset #d4d0c8',
-                fontFamily: 'Courier New, monospace',
-                fontSize: '12px',
-                resize: 'none'
-              }}
-              placeholder="Type your text here..."
-            />
-          </div>
-        );
+        return <Notepad />;
       case 'calculator':
-        return (
-          <div style={{ padding: '8px', textAlign: 'center' }}>
-            <div style={{
-              background: 'black',
-              color: 'lime',
-              padding: '8px',
-              fontFamily: 'monospace',
-              fontSize: '16px',
-              marginBottom: '8px'
-            }}>
-              0
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2px' }}>
-              {['C', '±', '%', '÷', '7', '8', '9', '×', '4', '5', '6', '-', '1', '2', '3', '+', '0', '.', '='].map(btn => (
-                <button key={btn} style={{ padding: '8px', fontSize: '12px' }}>{btn}</button>
-              ))}
-            </div>
-          </div>
-        );
+        return <Calculator />;
+      case 'paint':
+        return <Paint />;
+      case 'cmd':
+        return <CommandPrompt />;
       default:
         return (
           <div style={{ padding: '16px', textAlign: 'center' }}>
@@ -327,6 +343,11 @@ const Desktop = () => {
           }}
         />
       )}
+
+      {/* Dialogs */}
+      {showRunDialog && <RunDialog onClose={() => setShowRunDialog(false)} />}
+      {showShutdownDialog && <ShutdownDialog onClose={() => setShowShutdownDialog(false)} />}
+      {showLogOffDialog && <LogOffDialog onClose={() => setShowLogOffDialog(false)} />}
     </div>
   );
 };
