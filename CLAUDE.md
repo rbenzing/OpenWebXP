@@ -24,17 +24,6 @@
    - Video: `Generic Video.png`
    - Text: `Generic Text Document.png`
 
-### After Making Icon Changes
-1. **Run validation script**: Always validate icon paths before committing
-   ```bash
-   node scripts/validate-icons.js
-   ```
-2. **Fix mismatches systematically**: If validation finds missing references, update `scripts/icon-fixes.json` and run:
-   ```bash
-   node scripts/fix-icons.js
-   ```
-3. **Test in browser**: Clear cache and verify icons display (not white squares)
-
 ## Build Process
 
 ### Development
@@ -48,36 +37,18 @@
 
 ### Troubleshooting Builds
 - **"parcelRequire is not defined"**: Clear cache with `rm -rf .parcel-cache dist`
-- **Icons not displaying**: Ensure `scripts/copy-assets.js` ran successfully
 - **Stale cache issues**: Use `npm run build:clean` instead of `npm run build`
 
 ## Systematic Problem Solving
 
 When encountering repetitive issues across multiple files:
-1. **Create validation scripts** to detect issues systematically (e.g., `validate-icons.js`)
-2. **Create fix mappings** in JSON for maintainability (e.g., `icon-fixes.json`)
-3. **Create automation scripts** to apply fixes in bulk (e.g., `fix-icons.js`)
-4. **Document the process** for future reference
+1. **Document the process to fix or maintain consistency** for future reference
 
-Example workflow:
-```bash
-# 1. Find all issues
-node scripts/validate-icons.js
-
-# 2. Map corrections
-# Edit scripts/icon-fixes.json
-
-# 3. Apply fixes automatically
-node scripts/fix-icons.js
-
-# 4. Verify
-node scripts/validate-icons.js
-```
 
 ## Testing Protocol
 
 ### Before Committing
-1. Run validation scripts (icon validation, etc.)
+1. Run a build check for errors or severe warnings
 2. Clear cache and rebuild: `npm run build:clean`
 3. Test in browser - verify icons, dialogs, windows all display correctly
 4. Check browser console for errors
@@ -90,12 +61,6 @@ node scripts/validate-icons.js
 - Toolbar icons should render properly
 
 ## File Organization
-
-### Scripts Directory (`scripts/`)
-- `validate-icons.js` - Validates all icon paths against available PNG files
-- `fix-icons.js` - Automatically fixes icon path mismatches
-- `icon-fixes.json` - Mapping of incorrect → correct icon names
-- `copy-assets.js` - Copies static assets to dist for production builds
 
 ### Icon Constants
 - Keep icon path mappings in `src/constants/iconMapping.js`
